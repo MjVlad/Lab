@@ -43,33 +43,48 @@ Stack<T>::Stack(){
 
 template<typename T>
 inline void Stack<T>::push(const T& dt){
-	Node<T>* tmp = new Node<T>(dt, tail);
-	tail = tmp;
-	size_++;
+	try {
+		Node<T>* tmp = new Node<T>(dt, tail);
+		tail = tmp;
+		size_++;
+	}
+	catch (std::bad_alloc&) {
+		throw std::bad_alloc();
+	}
 }
 
 template<typename T>
 T Stack<T>::pop(){
 	T tmp(0);
-	if (!tail) {
-		std::cerr << "stack is empty" << std::endl;
-		return tmp;
-	}
-	tmp = tail->getdata();
-	Node<T>* nd = tail->prev;
-	delete tail;
-	tail = nd;
-	size_--;
+		if (!tail) {
+			throw std::out_of_range("stack is empty");
+			return tmp;
+		}
+	//try {
+		tmp = tail->getdata();
+		Node<T>* nd = tail->prev;
+		delete tail;
+		tail = nd;
+		size_--;
+	/*}
+	catch (std::bad_alloc&) {
+		throw std::bad_alloc();
+	}*/
 	return tmp;
 }
 
 template<typename T>
 void Stack<T>::clear(){
 	while (size_ > 0) {
-		Node<T>* nd = tail->prev;
-		delete tail;
-		tail = nd;
-		size_--;
+		try {
+			Node<T>* nd = tail->prev;
+			delete tail;
+			tail = nd;
+			size_--;
+		}
+		catch (std::bad_alloc&) {
+			throw std::bad_alloc();
+		}
 	}
 }
 
@@ -97,16 +112,22 @@ template<typename T>
 Stack<T>::Stack(const Stack<T>& st){
 	size_ = 0;
 	tail = nullptr;
-	T* tmp = new T[st.size_];
-	Node<T>* nd = st.tail;
-	size_t i = 1;
-	for (i; i <= st.size_; i++) {
-		tmp[i - 1] = nd->data;
-		nd = nd->prev;
+	try {
+		T* tmp = new T[st.size_];
+		Node<T>* nd = st.tail;
+		size_t i = 1;
+		for (i; i <= st.size_; i++) {
+			tmp[i - 1] = nd->data;
+			nd = nd->prev;
+		}
+		for (i--; i > 0; i--) {
+			this->push(tmp[i - 1]);
+		}
 	}
-	for (i--; i > 0; i--) {
-		this->push(tmp[i - 1]);
+	catch (std::bad_alloc&) {
+		throw std::bad_alloc();
 	}
+	
 }
 
 template<typename T>
@@ -114,15 +135,21 @@ inline Stack<T>& Stack<T>::operator=(const Stack<T>& st){
 	if (this == &st) return *this;
 	this->clear();
 	tail = nullptr;
-	T* tmp = new T[st.size_];
-	Node<T>* nd = st.tail;
-	size_t i = 1;
-	for (i; i <= st.size_; i++) {
-		tmp[i - 1] = nd->data;
-		nd = nd->prev;
+	try {
+		T* tmp = new T[st.size_];
+		Node<T>* nd = st.tail;
+		size_t i = 1;
+		for (i; i <= st.size_; i++) {
+			tmp[i - 1] = nd->data;
+			nd = nd->prev;
+		}
+		for (i--; i > 0; i--) {
+			this->push(tmp[i - 1]);
+		}
 	}
-	for (i--; i > 0; i--) {
-		this->push(tmp[i - 1]);
+	catch (std::bad_alloc&) {
+		throw std::bad_alloc();
 	}
+	
 	return *this;
 }
