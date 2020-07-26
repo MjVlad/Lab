@@ -2,7 +2,12 @@
 
 int main() {
 	Stack<int> St_int;
-	St_int.clear();//crash or error test
+	St_int.push(0);
+	std::cout << St_int << std::endl;
+	St_int.clear();
+	std::cout << St_int << std::endl;
+	St_int.push(0);
+	std::cout << St_int << std::endl;
 	St_int.pop();
 	std::cout << St_int << std::endl;
 	for (int i = 0; i < 10; i++) {
@@ -19,7 +24,12 @@ int main() {
 	std::cout << st_copy << std::endl;
 
 	Stack<point> St_point;
-	St_point.clear();//crash or error test
+	St_point.push(0);
+	std::cout << St_point << std::endl;
+	St_point.clear();
+	std::cout << St_point << std::endl;
+	St_point.push(0);
+	std::cout << St_point << std::endl;
 	St_point.pop();
 	std::cout << St_point << std::endl;
 	for (int i = 0; i < 10; i++) {
@@ -31,7 +41,7 @@ int main() {
 	std::cout << St_point << std::endl;
 
 	Stack<double> St_double;
-	St_double.clear();//crash or error test
+	St_double.clear();
 	St_double.pop();
 	std::cout << St_double << std::endl;
 	for (double i = 0; i < 10; i += 0.5) {
