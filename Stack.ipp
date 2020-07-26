@@ -35,15 +35,6 @@ std::ostream& operator<<(std::ostream& out, point& p) {
 	return out;
 }
 
-//template<typename T>
-//point& in(int i) {
-//	point* p = new point<T>(0);
-//	p->x = i;
-//	p->y = i;
-//	p->z = i;
-//	return *p;
-//};
-
 template<typename T>
 Stack<T>::Stack(){
 	size_ = 0;
@@ -103,7 +94,7 @@ Stack<T>::~Stack(){
 }
 
 template<typename T>
-Stack<T>::Stack(const Stack& st){
+Stack<T>::Stack(const Stack<T>& st){
 	size_ = 0;
 	tail = nullptr;
 	T* tmp = new T[st.size_];
@@ -116,4 +107,22 @@ Stack<T>::Stack(const Stack& st){
 	for (i--; i > 0; i--) {
 		this->push(tmp[i - 1]);
 	}
+}
+
+template<typename T>
+inline Stack<T>& Stack<T>::operator=(const Stack<T>& st){
+	if (this == &st) return *this;
+	this->clear();
+	tail = nullptr;
+	T* tmp = new T[st.size_];
+	Node<T>* nd = st.tail;
+	size_t i = 1;
+	for (i; i <= st.size_; i++) {
+		tmp[i - 1] = nd->data;
+		nd = nd->prev;
+	}
+	for (i--; i > 0; i--) {
+		this->push(tmp[i - 1]);
+	}
+	return *this;
 }

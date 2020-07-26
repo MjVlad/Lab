@@ -32,17 +32,8 @@ public:
 	template <typename T>
 	friend std::ostream& operator<<(std::ostream& out, const  Stack<T>& st);
 	~Stack();
-	Stack(const Stack& st);
+	Stack(const Stack<T>& st);
+	Stack<T>& operator=(const  Stack<T>& st);
 };
-
-//template<typename T>
-//std::ostream& operator<<(std::ostream& out, const Stack<T>& st) {
-//	Node<T>* tmp = st.tail;
-//	for (size_t i = 0; i < st.size_; i++) {
-//		out << tmp->data << " || ";
-//		tmp = tmp->prev;
-//	}
-//	return out;
-//}
 
 #include"Stack.ipp"
