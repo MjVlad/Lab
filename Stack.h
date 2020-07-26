@@ -9,11 +9,11 @@ private:
 public:
 	template <typename Tp>
 	friend class Stack;
-	Node(T dt, Node* pr) {
+	Node(const T& dt, Node* pr) {
 		prev = pr;
 		data = dt;
 	}
-	T getdata();
+	T getdata() const;
 	template <typename Tp>
 	friend std::ostream& operator<<(std::ostream& out, const  Stack<Tp>& st);
 };
@@ -25,14 +25,24 @@ private:
 	Node<T>* tail;
 public:
 	Stack();
-	void push(T dt);
+	void push(const T& dt);
 	T pop();
-	size_t size() { return size; }
+	size_t size() const { return size; }
 	void clear();
-	template <typename Tp>
-	friend std::ostream& operator<<(std::ostream& out, const  Stack<Tp>& st);
+	template <typename T>
+	friend std::ostream& operator<<(std::ostream& out, const  Stack<T>& st);
 	~Stack();
-	Stack(Stack& st);
+	Stack(const Stack& st);
 };
 
-#include"Stack.tpp"
+//template<typename T>
+//std::ostream& operator<<(std::ostream& out, const Stack<T>& st) {
+//	Node<T>* tmp = st.tail;
+//	for (size_t i = 0; i < st.size_; i++) {
+//		out << tmp->data << " || ";
+//		tmp = tmp->prev;
+//	}
+//	return out;
+//}
+
+#include"Stack.ipp"

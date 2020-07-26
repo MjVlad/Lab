@@ -12,6 +12,11 @@ struct point {
 		y = a;
 		z = a;
 	}
+	point(int x1, int y1, int z1) {
+		x = x1;
+		y = y1;
+		z = z1;
+	}
 	point& operator=(const point& p) {
 		x = p.x;
 		y = p.y;
@@ -21,7 +26,7 @@ struct point {
 };
 
 template<typename T>
-T Node<T>::getdata(){
+T Node<T>::getdata() const{
 	return data;
 }
 
@@ -30,14 +35,14 @@ std::ostream& operator<<(std::ostream& out, point& p) {
 	return out;
 }
 
-template<typename T>
-point& in(int i) {
-	point* p = new point<T>(0);
-	p->x = i;
-	p->y = i;
-	p->z = i;
-	return *p;
-};
+//template<typename T>
+//point& in(int i) {
+//	point* p = new point<T>(0);
+//	p->x = i;
+//	p->y = i;
+//	p->z = i;
+//	return *p;
+//};
 
 template<typename T>
 Stack<T>::Stack(){
@@ -46,7 +51,7 @@ Stack<T>::Stack(){
 }
 
 template<typename T>
-inline void Stack<T>::push(T dt){
+inline void Stack<T>::push(const T& dt){
 	Node<T>* tmp = new Node<T>(dt, tail);
 	tail = tmp;
 	size_++;
@@ -98,7 +103,7 @@ Stack<T>::~Stack(){
 }
 
 template<typename T>
-Stack<T>::Stack(Stack& st){
+Stack<T>::Stack(const Stack& st){
 	size_ = 0;
 	tail = nullptr;
 	T* tmp = new T[st.size_];
@@ -112,4 +117,3 @@ Stack<T>::Stack(Stack& st){
 		this->push(tmp[i - 1]);
 	}
 }
-
