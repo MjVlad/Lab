@@ -26,7 +26,7 @@ struct point {
 };
 
 template<typename T>
-T Node<T>::getdata() const{
+T Node<T>::getdata() const {
 	return data;
 }
 
@@ -36,60 +36,50 @@ std::ostream& operator<<(std::ostream& out, point& p) {
 }
 
 template<typename T>
-Stack<T>::Stack(){
+Stack<T>::Stack() {
 	size_ = 0;
 	tail = nullptr;
 }
 
 template<typename T>
-inline void Stack<T>::push(const T& dt){
+inline void Stack<T>::push(const T& dt) {
 	try {
 		Node<T>* tmp = new Node<T>(dt, tail);
 		tail = tmp;
 		size_++;
 	}
 	catch (std::bad_alloc&) {
-		throw std::bad_alloc();
+		throw;
 	}
 }
 
 template<typename T>
-T Stack<T>::pop(){
+T Stack<T>::pop() {
 	T tmp(0);
-		if (!tail) {
-			throw std::out_of_range("stack is empty");
-			return tmp;
-		}
-	//try {
-		tmp = tail->getdata();
-		Node<T>* nd = tail->prev;
-		delete tail;
-		tail = nd;
-		size_--;
-	/*}
-	catch (std::bad_alloc&) {
-		throw std::bad_alloc();
-	}*/
+	if (!tail) {
+		throw std::out_of_range("stack is empty");
+		return tmp;
+	}
+	tmp = tail->getdata();
+	Node<T>* nd = tail->prev;
+	delete tail;
+	tail = nd;
+	size_--;
 	return tmp;
 }
 
 template<typename T>
-void Stack<T>::clear(){
+void Stack<T>::clear() {
 	while (size_ > 0) {
-		try {
-			Node<T>* nd = tail->prev;
-			delete tail;
-			tail = nd;
-			size_--;
-		}
-		catch (std::bad_alloc&) {
-			throw std::bad_alloc();
-		}
+		Node<T>* nd = tail->prev;
+		delete tail;
+		tail = nd;
+		size_--;
 	}
 }
 
 template<typename T>
-std::ostream& operator<<(std::ostream& out, const Stack<T>& st){
+std::ostream& operator<<(std::ostream& out, const Stack<T>& st) {
 	Node<T>* tmp = st.tail;
 	for (size_t i = 0; i < st.size_; i++) {
 		out << tmp->data << " || ";
@@ -99,17 +89,12 @@ std::ostream& operator<<(std::ostream& out, const Stack<T>& st){
 }
 
 template<typename T>
-Stack<T>::~Stack(){
-	while (size_ > 0) {
-		Node<T>* nd = tail->prev;
-		delete tail;
-		tail = nd;
-		size_--;
-	}
+Stack<T>::~Stack() {
+	this->clear();
 }
 
 template<typename T>
-Stack<T>::Stack(const Stack<T>& st){
+Stack<T>::Stack(const Stack<T>& st) {
 	size_ = 0;
 	tail = nullptr;
 	try {
@@ -125,13 +110,13 @@ Stack<T>::Stack(const Stack<T>& st){
 		}
 	}
 	catch (std::bad_alloc&) {
-		throw std::bad_alloc();
+		throw;
 	}
-	
+
 }
 
 template<typename T>
-inline Stack<T>& Stack<T>::operator=(const Stack<T>& st){
+inline Stack<T>& Stack<T>::operator=(const Stack<T>& st) {
 	if (this == &st) return *this;
 	this->clear();
 	tail = nullptr;
@@ -148,8 +133,7 @@ inline Stack<T>& Stack<T>::operator=(const Stack<T>& st){
 		}
 	}
 	catch (std::bad_alloc&) {
-		throw std::bad_alloc();
+		throw;
 	}
-	
 	return *this;
 }

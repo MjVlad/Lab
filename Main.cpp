@@ -1,61 +1,40 @@
 #include "Stack.h"
 
+template<typename T>
+void test(Stack<T>& St) {
+	St.push(0);
+	std::cout << St << std::endl;
+	St.clear();
+	std::cout << St << std::endl;
+	St.push(0);
+	std::cout << St << std::endl;
+	St.pop();
+	std::cout << St << std::endl;
+	for (int i = 0; i < 10; i++) {
+		St.push(i);
+	}
+	std::cout << St << std::endl;
+	Stack<T> St_copy;
+	St_copy = St;
+	St.pop();
+	std::cout << St << std::endl;
+	std::cout << St_copy << std::endl;
+	St_copy.clear();
+	//St_copy.pop();
+	Stack<T> st_copy_2(St);
+	std::cout << st_copy_2 << std::endl;
+}
+
 int main() {
 	try {
 		Stack<int> St_int;
-		St_int.push(0);
-		std::cout << St_int << std::endl;
-		St_int.clear();
-		std::cout << St_int << std::endl;
-		St_int.push(0);
-		std::cout << St_int << std::endl;
-		St_int.pop();
-		std::cout << St_int << std::endl;
-		for (int i = 0; i < 10; i++) {
-			St_int.push(i);
-		}
-		std::cout << St_int << std::endl;
-		Stack<int> St_int_copy;
-		St_int_copy = St_int;
-		St_int.pop();
-		std::cout << St_int << std::endl;
-		std::cout << St_int_copy << std::endl;
-		St_int_copy.clear();
-		Stack<int> st_copy(St_int);
-		std::cout << st_copy << std::endl;
-
+		test(St_int);
 		Stack<point> St_point;
-		St_point.push(0);
-		std::cout << St_point << std::endl;
-		St_point.clear();
-		std::cout << St_point << std::endl;
-		St_point.push(0);
-		std::cout << St_point << std::endl;
-		St_point.pop();
-		std::cout << St_point << std::endl;
-		for (int i = 0; i < 10; i++) {
-			point* p = new point(i);
-			St_point.push(*p);
-		}
-		std::cout << St_point << std::endl;
-		St_point.pop();
-		std::cout << St_point << std::endl;
-
-		Stack<double> St_double;
-		St_double.clear();
-		St_double.pop();
-		std::cout << St_double << std::endl;
-		for (double i = 0; i < 10; i += 0.5) {
-			St_double.push(i);
-		}
-		std::cout << St_double << std::endl;
-		St_double.pop();
-		std::cout << St_double << std::endl;
+		test(St_point);
+		Stack<int> St_double;
+		test(St_double);
 	}
-	catch (std::out_of_range& e) {
-		std::cerr << e.what();
-	}
-	catch (std::bad_alloc & e) {
+	catch (std::exception& e) {
 		std::cerr << e.what();
 	}
 }
