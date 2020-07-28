@@ -98,6 +98,7 @@ Stack<T>::Stack(const Stack<T>& st) {
 	for (i--; i > 0; i--) {
 		this->push(tmp[i - 1]);
 	}
+	delete[] tmp;
 }
 
 template<typename T>
