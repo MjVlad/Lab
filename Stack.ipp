@@ -43,10 +43,9 @@ Stack<T>::Stack() {
 
 template<typename T>
 inline void Stack<T>::push(const T& dt) {
-		Node<T>* tmp = new Node<T>(dt, tail);
-		if (!tmp) throw std::exception("bad allocation");
-		tail = tmp;
-		size_++;
+	Node<T>* tmp = new Node<T>(dt, tail);
+	tail = tmp;
+	size_++;
 }
 
 template<typename T>
@@ -89,17 +88,16 @@ template<typename T>
 Stack<T>::Stack(const Stack<T>& st) {
 	size_ = 0;
 	tail = nullptr;
-		T* tmp = new T[st.size_];
-		if (!tmp) throw std::exception("bad allocation");
-		Node<T>* nd = st.tail;
-		size_t i = 1;
-		for (i; i <= st.size_; i++) {
-			tmp[i - 1] = nd->data;
-			nd = nd->prev;
-		}
-		for (i--; i > 0; i--) {
-			this->push(tmp[i - 1]);
-		}
+	T* tmp = new T[st.size_];
+	Node<T>* nd = st.tail;
+	size_t i = 1;
+	for (i; i <= st.size_; i++) {
+		tmp[i - 1] = nd->data;
+		nd = nd->prev;
+	}
+	for (i--; i > 0; i--) {
+		this->push(tmp[i - 1]);
+	}
 }
 
 template<typename T>
@@ -107,16 +105,16 @@ inline Stack<T>& Stack<T>::operator=(const Stack<T>& st) {
 	if (this == &st) return *this;
 	this->clear();
 	tail = nullptr;
-		T* tmp = new T[st.size_];
-		if (!tmp) throw std::exception("bad allocation");
-		Node<T>* nd = st.tail;
-		size_t i = 1;
-		for (i; i <= st.size_; i++) {
-			tmp[i - 1] = nd->data;
-			nd = nd->prev;
-		}
-		for (i--; i > 0; i--) {
-			this->push(tmp[i - 1]);
-		}
+	T* tmp = new T[st.size_];
+	Node<T>* nd = st.tail;
+	size_t i = 1;
+	for (i; i <= st.size_; i++) {
+		tmp[i - 1] = nd->data;
+		nd = nd->prev;
+	}
+	for (i--; i > 0; i--) {
+		this->push(tmp[i - 1]);
+	}
+	delete[] tmp;
 	return *this;
 }
